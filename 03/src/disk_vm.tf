@@ -1,5 +1,5 @@
 resource "yandex_compute_disk" "count_disk" {
-  count = 2
+  count = 3
 
   name = "netology-platform-develop-count-disk-${count.index}"
 

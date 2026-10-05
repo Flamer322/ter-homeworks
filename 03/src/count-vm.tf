@@ -1,7 +1,7 @@
 resource "yandex_compute_instance" "count_vm" {
   count = 2
 
-  name        = "netology-platform-develop-count-vm-${count.index}"
+  name        = "web-${count.index + 1}"
   platform_id = var.vm_resources.platform_id
   zone        = var.default_zone
 
@@ -28,4 +28,6 @@ resource "yandex_compute_instance" "count_vm" {
   }
 
   metadata = local.vms_metadata
+
+  depends_on = [yandex_compute_instance.each_vm]
 }

@@ -47,6 +47,4 @@ resource "yandex_compute_instance" "each_vm" {
   }
 
   metadata = local.vms_metadata
-
-  depends_on = [yandex_compute_instance.count_vm]
 }
