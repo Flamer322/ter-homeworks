@@ -1,8 +1,4 @@
-###cloud vars
-variable "token" {
-  type        = string
-  description = "OAuth-token; https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token"
-}
+# cloud vars
 
 variable "cloud_id" {
   type        = string
@@ -14,44 +10,54 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
-variable "default_zone" {
+variable "mysql_cluster_name" {
   type        = string
-  default     = "ru-central1-a"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-variable "default_cidr" {
-  type        = list(string)
-  default     = ["10.0.1.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+  default     = "example"
+  description = "MYSQL cluster name"
 }
 
-variable "vpc_name" {
-  type        = string
-  default     = "develop"
-  description = "VPC network&subnet name"
+variable "mysql_cluster_zone" {
+  type    = string
+  default = "ru-central1-a"
 }
 
-###common vars
-
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "your_ssh_ed25519_key"
-  description = "ssh-keygen -t ed25519"
+variable "mysql_cluster_ha" {
+  type    = bool
+  default = true
 }
 
-###example vm_web var
-variable "vm_web_name" {
-  type        = string
-  default     = "netology-develop-platform-web"
-  description = "example vm_web_ prefix"
+variable "mysql_database_name" {
+  type    = string
+  default = "test"
 }
 
-###example vm_db var
-variable "vm_db_name" {
-  type        = string
-  default     = "netology-develop-platform-db"
-  description = "example vm_db_ prefix"
+variable "mysql_user_name" {
+  type    = string
+  default = "app"
 }
 
+variable "mysql_user_password" {
+  type      = string
+  default   = "password"
+  sensitive = true
+}
 
+variable "s3_bucket_name" {
+  type    = string
+  default = "develop-bucket"
+}
 
+variable "s3_bucket_size" {
+  type    = number
+  default = 1073741824
+}
+
+variable "vault_address" {
+  type = string
+  default = "http://127.0.0.1:8200"
+}
+
+variable "vault_token" {
+  type = string
+  default = "education"
+}
