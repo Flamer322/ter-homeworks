@@ -3,7 +3,7 @@ module "mysql_cluster_example" {
 
   name       = var.mysql_cluster_name
   zone       = var.mysql_cluster_zone
-  network_id = data.terraform_remote_state.vpc.outputs.net.id
+  network_id = module.vpc_dev.net.id
   ha         = var.mysql_cluster_ha
 }
 

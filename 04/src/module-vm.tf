@@ -1,11 +1,3 @@
-data "terraform_remote_state" "vpc" {
-  backend = "local"
-
-  config = {
-    path = "../vpc/terraform.tfstate"
-  }
-}
-
 data "template_file" "cloudinit" {
   template = file("./cloud-init.yaml.tpl")
   vars = {
@@ -15,9 +7,9 @@ data "template_file" "cloudinit" {
 
 module "marketing_vm" {
   source        = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  network_id    = data.terraform_remote_state.vpc.outputs.net.id
-  subnet_zones  = [for subnet in data.terraform_remote_state.vpc.outputs.subnets : subnet.zone]
-  subnet_ids    = [for subnet in data.terraform_remote_state.vpc.outputs.subnets : subnet.id]
+  network_id    = module.vpc_dev.net.id
+  subnet_zones  = [for subnet in module.vpc_dev.subnets : subnet.zone]
+  subnet_ids    = [for subnet in module.vpc_dev.subnets : subnet.id]
   instance_name = "netology-module-vm-marketing"
   image_family  = var.vm_image_family
   public_ip     = true
@@ -33,9 +25,9 @@ module "marketing_vm" {
 
 module "analytics_vm" {
   source        = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  network_id    = data.terraform_remote_state.vpc.outputs.net.id
-  subnet_zones  = [for subnet in data.terraform_remote_state.vpc.outputs.subnets : subnet.zone]
-  subnet_ids    = [for subnet in data.terraform_remote_state.vpc.outputs.subnets : subnet.id]
+  network_id    = module.vpc_dev.net.id
+  subnet_zones  = [for subnet in module.vpc_dev.subnets : subnet.zone]
+  subnet_ids    = [for subnet in module.vpc_dev.subnets : subnet.id]
   instance_name = "netology-module-vm-analytics"
   image_family  = var.vm_image_family
   public_ip     = true

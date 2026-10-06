@@ -10,6 +10,24 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
+variable "subnets" {
+  type = list(
+    object({
+      zone = string
+      cidr = string
+    })
+  )
+  default = [
+    { zone = "ru-central1-a", cidr = "10.0.1.0/24" },
+  ]
+}
+
+variable "vpc_name" {
+  type        = string
+  default     = "develop"
+  description = "VPC network&subnet name"
+}
+
 variable "mysql_cluster_name" {
   type        = string
   default     = "example"
@@ -60,4 +78,21 @@ variable "vault_address" {
 variable "vault_token" {
   type = string
   default = "education"
+}
+
+# common vars
+
+variable "vms_ssh_key_file" {
+  type        = string
+  default     = "~/.ssh/yandex-cloud-bba11enev-economy-toolbox.pub"
+  description = "ssh-keygen -t ed25519"
+  sensitive   = true
+}
+
+# vm vars
+
+variable "vm_image_family" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "VM image family name"
 }
