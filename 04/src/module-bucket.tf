@@ -7,7 +7,7 @@ resource "random_string" "unique_id" {
 }
 
 module "s3" {
-  source = "git::https://github.com/terraform-yc-modules/terraform-yc-s3.git?ref=master"
+  source = "git::https://github.com/terraform-yc-modules/terraform-yc-s3.git?ref=791f53698dd13ee97bc1cbe51b765f2d10f1d273"
 
   bucket_name = "${var.s3_bucket_name}-${random_string.unique_id.result}"
   max_size    = var.s3_bucket_size
