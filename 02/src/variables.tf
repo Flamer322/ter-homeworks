@@ -14,13 +14,11 @@ variable "project" {
 
 variable "cloud_id" {
   type        = string
-  default     = "b1g5hvs35p13c6j5mdgc"
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
 }
 
 variable "folder_id" {
   type        = string
-  default     = "b1g46m848182hv5f2t99"
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
@@ -87,19 +85,8 @@ variable "vms_ssh_name" {
   default = "ubuntu"
 }
 
-variable "vms_ssh_key_file" {
+variable "vms_ssh_key" {
   type        = string
-  default     = "~/.ssh/yandex-cloud-bba11enev-economy-toolbox.pub"
-  description = "ssh-keygen -t ed25519"
+  description = "public ssh key"
   sensitive   = true
-}
-
-# test var
-
-variable "test" {
-  type = list(
-    map(
-      list(string)
-    )
-  )
 }
