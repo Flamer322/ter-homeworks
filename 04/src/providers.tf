@@ -13,13 +13,13 @@ terraform {
     }
   }
 
-  required_version = "~>1.16.0"
+  required_version = ">=1.16.0"
 
   backend "s3" {
     profile = "default"
 
-    bucket = "develop-bucket-abdtsxh4"
-    key    = "terraform.tfstate"
+    bucket = "develop-bucket-4hrniryy"
+    key    = "ter-practice/05/terraform.tfstate"
     region = "ru-central1"
 
     use_lockfile = true

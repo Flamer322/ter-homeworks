@@ -96,3 +96,63 @@ variable "vm_image_family" {
   default     = "ubuntu-2004-lts"
   description = "VM image family name"
 }
+
+# test vars
+
+variable "test_ip_address" {
+  type        = string
+  description = "ip-адрес"
+
+  default = "192.168.0.1"
+  # default = "1920.1680.0.1"
+
+  validation {
+    condition     = can(cidrhost("${var.test_ip_address}/32", 0))
+    error_message = "test_ip_address must be a valid IPv4 address."
+  }
+}
+
+variable "test_ip_address_list" {
+  type        = list(string)
+  description = "список ip-адресов"
+
+  default = ["192.168.0.1", "1.1.1.1", "127.0.0.1"]
+  # default = ["192.168.0.1", "1.1.1.1", "1270.0.0.1"]
+
+  validation {
+    condition = alltrue([
+      for ip_address in var.test_ip_address_list :
+      can(cidrhost("${ip_address}/32", 0))
+    ])
+
+    error_message = "All test_ip_address_list values must be a valid IPv4 addresses."
+  }
+}
+
+variable "test_no_uppercase" {
+  type        = string
+  description = "любая строка"
+
+  default = "любая строка"
+  # default = "ЛЮБАЯ строка"
+
+  validation {
+    condition     = var.test_no_uppercase == lower(var.test_no_uppercase)
+    error_message = "test_no_uppercase must not contain uppercase values."
+  }
+}
+
+variable "in_the_end_there_can_be_only_one" {
+  description = "Who is better Connor or Duncan?"
+  type        = object({ Dunkan = optional(bool), Connor = optional(bool) })
+
+  default = { Dunkan = true, Connor = false }
+  # default = {  Dunkan = false, Connor = true }
+  # default = {  Dunkan = true, Connor = true }
+  # default = {  Dunkan = false, Connor = false }
+
+  validation {
+    condition     = var.in_the_end_there_can_be_only_one.Dunkan != var.in_the_end_there_can_be_only_one.Connor
+    error_message = "There can be only one MacLeod"
+  }
+}
